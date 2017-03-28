@@ -1,23 +1,26 @@
 package com.company.Skills;
 
 import com.company.HeroParams.Skill;
+import com.company.Scale;
 import com.company.Unit;
 
 /**
  * Created by Dima on 23.02.2017.
  */
 public class Heal extends Skill{
-    public Heal() {
+    public Heal(Unit owner) {
+        super(owner);
         name = "Heal";
-        description = "Add target unit 5 health points";
         cost = 10;
-
+        dmgMod = Scale.C;
+        accuracyMod = 1;
+        description = "Add target unit " + power +" health points " + owner.damage;
     }
 
     @Override
-    public void use(Unit target, Unit user) {
-        super.use(target, user);
-        System.out.println("Healed " + target.name + " giving 5 hp");
-        target.modHealth(-5);
+    public void use(Unit target) {
+        super.use(target);
+        System.out.println("Healed " + target.name + " giving" + power + "hp");
+        target.modHealth(-power);
     }
 }

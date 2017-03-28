@@ -10,35 +10,36 @@ import java.util.LinkedList;
  * Created by Dima on 23.02.2017.
  */
 public abstract class Hero extends Unit implements Hireable{
-    public int experience, level, defence, dexterity, speed;
+    private int prDexterity, prPower, prdefence;
+    public Scale hpScale, crtScale, mpScale, speedScale, dodgeScale, dmgScale, accScale;
+    public int power, dexterity, experience, level;
     public HeroClasses heroClass;
-    public String name;
-    private Team team;
-    public boolean isDead = false;
 
-    public Hero(int defence, int dexterity, int speed, String name, Team team) {
-        this.defence = defence;
-        this.dexterity = dexterity;
-        this.speed = speed;
+    public Hero(int dexterity, int power, String name,  Team team) {
+        this.prDexterity = dexterity;
+        this.prPower = power;
         this.name = name;
         this.team = team;
-        experience = 0;
+        type = UnitTypes.Hero;
         level = 1;
+        experience = 0;
     }
 
-    public Hero(Team team, String name) {
-        this(1, 1, 1, name, team);
+    public void manaEnd() {}
+
+    public void countStats() {
+        maxHealth = (int)(power * hpScale.scale);
+        maxMana = (int)(power * mpScale.scale);
+        critical = (int)(power * crtScale.scale);
+        dodge = (int)(dexterity * dodgeScale.scale);
+        speed = (int)(dexterity * speedScale.scale);
+        damage = (int)(power* dmgScale.scale);
+        accuracy = (int)(power*accScale.scale);
     }
 
     public LinkedList<Feature> features = new LinkedList<Feature>();
     public LinkedList<Item> items = new LinkedList<Item>();
-    public LinkedList<Skill> skills = new LinkedList<Skill>();
 
-    @Override
-    public void die() {
-        System.out.println(name + " died");
-        isDead = true;
-    }
 
     @Override
     public String toString() {
@@ -48,8 +49,10 @@ public abstract class Hero extends Unit implements Hireable{
                 ", health=" + health +
                 ", experience=" + experience +
                 ", level=" + level +
+                ", damage=" + damage +
                 ", defence=" + defence +
                 ", dexterity=" + dexterity +
+                ", power=" + power +
                 ", heroClass=" + heroClass +
                 ", features=" + features +
                 ", items=" + items +

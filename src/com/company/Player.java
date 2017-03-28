@@ -7,7 +7,7 @@ import java.util.LinkedList;
  */
 public class Player {
     Team team = new Team();
-    public void makeTurn(int user, int spell, Player enemy, int target) {
-        team.get(user).skills.get(spell).use(enemy.team.get(target), team.get(user));
+    public void makeMove(int user, int spell, Player enemy, int target) {
+        team.get(user).skills.get(spell).use(enemy.team.get(target));
     }
 }

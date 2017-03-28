@@ -1,21 +1,25 @@
 package com.company.Skills;
 
 import com.company.HeroParams.Skill;
+import com.company.Scale;
 import com.company.Unit;
 
 /**
  * Created by Dima on 23.02.2017.
  */
 public class SwordStrike extends Skill {
-    public SwordStrike(){
-        name = "Sword strike";
-        description = "Strike enemy with sword and deal 5 damage";
+    public SwordStrike(Unit owner) {
+        super(owner);
+        name = "SwordStrike";
+        dmgMod = Scale.B;
+        accuracyMod = 0.9;
         cost = 0;
+        description = "Hit target dealing " + power +" damage";
     }
     @Override
-    public void use(Unit target, Unit user) {
-        super.use(target, user);
-        System.out.println("Stroke " + target.name + " dealing 5 damage");
-        target.modHealth(5);
+    public void use(Unit target) {
+        super.use(target);
+        System.out.println("Stroke " + target.name + " dealing " + power +" damage");
+        target.modHealth(power);
     }
 }
